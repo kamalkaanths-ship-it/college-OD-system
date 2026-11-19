@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Staff Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <h1>College Staff Dashboard</h1>
+
+    <h3>Welcome, {{ staff.full_name }}!</h3>
+
+    <hr>
+
+    <h2>Application Statistics</h2>
+
+    <div>
+        <h3>Total Applications: {{ total_applications }}</h3>
+        <h3>Pending: {{ pending_count }}</h3>
+        <h3>Approved: {{ approved_count }}</h3>
+        <h3>Rejected: {{ rejected_count }}</h3>
+    </div>
+
+    <hr>
+
+    <h2>OD Application Management</h2>
+
+    <form action="/staff_dashboard" method="GET">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search by Student Name, Roll Number or Event Name"
+        >
+
+        <button type="submit">Search</button>
+
+        <a href="/staff_dashboard">Clear Search</a>
+
+    </form>
+
+    <br>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>Student Name</th>
+            <th>Roll Number</th>
+            <th>Event Name</th>
+            <th>From Date</th>
+            <th>To Date</th>
+            <th>Reason</th>
+            <th>Proof</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for application in applications %}
+
+        <tr>
+            <td>{{ application.student.full_name }}</td>
+            <td>{{ application.student.roll_number }}</td>
+            <td>{{ application.event_name }}</td>
+            <td>{{ application.from_date }}</td>
+            <td>{{ application.to_date }}</td>
+            <td>{{ application.reason }}</td>
+
+            <td>
+                <a href="/uploads/{{ application.proof_file }}" target="_blank">
+                    View Proof
+                </a>
+            </td>
+
+            <td>{{ application.status }}</td>
+
+            <td>
+                <form action="/update_status/{{ application.id }}" method="POST">
+
+    <label>Staff Remarks:</label>
+    <textarea name="staff_remarks" placeholder="Enter your remarks here..."></textarea>
+
+    <br><br>
+
+    <button type="submit" name="status" value="Approved">
+        Approve
+    </button>
+
+    <button type="submit" name="status" value="Rejected">
+        Reject
+    </button>
+
+</form>
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    {% if not applications %}
+        <p>No OD applications received yet.</p>
+    {% endif %}
+
+    <br>
+
+    <a href="/logout">Logout</a>
+
+</body>
+</html>

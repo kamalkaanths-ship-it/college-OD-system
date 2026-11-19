@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Apply for On-Duty</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <h1>On-Duty Application Form</h1>
+{% if error %}
+    <p style="color: red; font-weight: bold;">{{ error }}</p>
+{% endif %}
+    <form action="/apply_od" method="POST" enctype="multipart/form-data">
+
+        <label>Event Name:</label>
+        <input type="text" name="event_name" required>
+        <br><br>
+
+        <label>Event Location:</label>
+        <input type="text" name="event_location" required>
+        <br><br>
+
+        <label>From Date:</label>
+        <input type="date" name="from_date" required>
+        <br><br>
+
+        <label>To Date:</label>
+        <input type="date" name="to_date" required>
+        <br><br>
+
+        <label>Reason for OD:</label>
+        <textarea name="reason" required></textarea>
+        <br><br>
+
+        <label>Upload Proof Document:</label>
+        <input type="file" name="proof" accept=".pdf,.jpg,.jpeg,.png" required>
+        <br><br>
+
+        <button type="submit">Submit Application</button>
+
+    </form>
+
+    <br>
+    <a href="/student_dashboard">Back to Dashboard</a>
+
+    <script>
+    const fromDate = document.querySelector('input[name="from_date"]');
+    const toDate = document.querySelector('input[name="to_date"]');
+
+    const today = new Date().toISOString().split('T')[0];
+
+    fromDate.min = today;
+    toDate.min = today;
+
+    fromDate.addEventListener('change', function () {
+        toDate.min = fromDate.value;
+
+        if (toDate.value && toDate.value < fromDate.value) {
+            toDate.value = fromDate.value;
+        }
+    });
+</script>
+
+</body>
+</html>

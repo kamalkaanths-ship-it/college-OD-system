@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>College OD Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <h1>College On-Duty Management System</h1>
+
+    <p>Welcome to the Online OD Application Portal</p>
+
+    <a href="{{ url_for('student_login') }}">
+        <button type="button">Student Login</button>
+    </a>
+    <a href="/register">
+    <button type="button">Student Registration</button>
+    </a>
+    <a href="{{ url_for('staff_login') }}">
+        <button type="button">Staff Login</button>
+    </a>
+
+</body>
+</html>

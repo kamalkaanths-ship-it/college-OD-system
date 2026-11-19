@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <h1>Welcome to Student Dashboard</h1>
+
+    <h2>College On-Duty Management System</h2>
+
+    <p>Hello, {{ student.full_name }}!</p>
+
+    <h3>Your Details</h3>
+
+    <p>Roll Number: {{ student.roll_number }}</p>
+    <p>Department: {{ student.department }}</p>
+    <p>Email: {{ student.email }}</p>
+
+    <hr>
+
+    <h3>Student Services</h3>
+
+    <a href="/apply_od">
+        <button type="button">Apply for On-Duty</button>
+    </a>
+
+    <br><br>
+
+    <a href="{{ url_for('my_applications') }}">
+        <button type="button">My OD Applications</button>
+    </a>
+
+    <br><br>
+
+    <a href="/logout">Logout</a>
+
+</body>
+</html>

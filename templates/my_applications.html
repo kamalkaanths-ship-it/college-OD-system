@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My OD Applications</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<h1>My OD Applications</h1>
+{% for application in applications %}
+    <p>Application ID: {{ application.id }}</p>
+    <div>
+        <h3>{{ application.event_name }}</h3>
+        <p>Location: {{ application.event_location }}</p>
+        <p>From: {{ application.from_date }}</p>
+        <p>To: {{ application.to_date }}</p>
+        {% if application.submitted_at %}
+            <p>Submitted On: {{ application.submitted_at.strftime('%d-%m-%Y %I:%M %p') }}</p>
+        {% endif %}
+        <p>Status: {{ application.status }}</p>
+        {% if application.staff_remarks %}
+            <p>Staff Remarks: {{ application.staff_remarks }}</p>
+        {% endif %}
+        {% if application.status == 'Approved' %}
+            <a href="/download_od/{{ application.id }}">
+                <button type="button">Download OD Approval PDF</button>
+            </a>
+        {% elif application.status == 'Pending' %}
+            <p>Your application is waiting for approval.</p>
+        {% elif application.status == 'Rejected' %}
+            <p>Your application has been rejected.</p>
+        {% endif %}
+    </div>
+    <hr>
+{% else %}
+    <p>You have not submitted any OD applications yet.</p>
+{% endfor %}
+<a href="{{ url_for('student_dashboard') }}">Back to Dashboard</a>
+</body>
+</html>
