@@ -14,7 +14,9 @@ app = Flask(__name__, template_folder='templates')
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
 app.config['SECRET_KEY'] = 'college_od_secret'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///college_od.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///college_od.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'].replace('postgres://', 'postgresql://')
+app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'].replace('postgresql://', 'postgresql+psycopg2://')
 
 db = SQLAlchemy(app)
 
