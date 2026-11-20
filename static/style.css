@@ -201,3 +201,31 @@ input:focus, select:focus, textarea:focus {
         transform: translateY(0) scale(1);
     }
 }
+/* Improve text visibility */
+body, h1, h2, h3, h4, h5, h6, p, label, span {
+    color: #ffffff;
+}
+
+/* Table readability */
+table {
+    color: #ffffff;
+}
+
+table th {
+    color: #ffffff;
+    background: #1e293b;
+}
+
+table td {
+    color: #1e293b;
+}
+
+/* Search text */
+input, textarea, select {
+    color: #1e293b;
+}
+
+/* Links */
+a {
+    color: #93c5fd;
+}
