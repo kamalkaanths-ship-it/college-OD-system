@@ -221,13 +221,12 @@ def apply_od():
     return render_template('apply_od.html')
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
-    if 'staff_id' not in session:
-        return redirect('/staff_login')
+    if not os.path.exists(file_path):
+        return "File not found. It may have been removed from server storage.", 404
 
-    return send_file(
-        os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    )
+    return send_file(file_path)
 
 # My Applications
 @app.route('/my_applications')
